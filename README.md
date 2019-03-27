@@ -1,2 +1,1 @@
-# journa-app
-Journa app
+
