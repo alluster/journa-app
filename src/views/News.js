@@ -22,7 +22,7 @@ class News extends Component {
       color: props.color,
       data: {},
       value:'',
-      cors: 'https://cors.io/?'
+      cors: 'http://cors.io/?'
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
