@@ -46,6 +46,7 @@ class News extends Component {
     })()
    }
 
+   
   render() {
     
    
