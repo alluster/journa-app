@@ -21,22 +21,34 @@ class News extends Component {
     this.state = { 
       color: props.color,
       data: {},
-    };
+      value:'',
+      cors: 'https://cors.io/?'
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
    }
-   componentDidMount(){
+   handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A url was submitted: ' + this.state.value);
+    event.preventDefault();
     const urlMetadata = require('url-metadata')
-      ;(async () => {
-        const metadata = await urlMetadata('https://cors.io/?https://www.hs.fi/teknologia/art-2000006049981.html')
-        console.log(metadata)
-        this.setState({data: metadata})
-      })()
-   }
+;(async () => {
+  const metadata = await urlMetadata(this.state.cors + this.state.value)
+  console.log(metadata)
+  this.setState({data: metadata})
+})()
+  }
+
+   
 
 
 
 
   render() {
-    
+
    
     return (
       <Container>
@@ -47,8 +59,13 @@ class News extends Component {
        
         <Gx col={6}>
           <H4>
-          <Input />
-            </H4>
+          <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>            </H4>
         </Gx>  
         <Card data={this.state.data} />
 

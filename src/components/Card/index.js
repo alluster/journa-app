@@ -26,11 +26,9 @@ const ProfileButton = styled(Button)`
   margin-bottom: auto;
 
 `;
-const description = 'og:description'
 const Card = (data) =>
 <Container>
-{  console.log('moi',data)
-}<Gx col={3}>
+<Gx col={3}>
 <ImageContainer>
   <Image src={data.data.image} />
   </ImageContainer>
@@ -39,20 +37,23 @@ const Card = (data) =>
   <Gx col={9}>
   <Text >
     <Gx col={3}>
-    <H5>Matti Pellonpää </H5>  
+    {
+      data ? <P small>{data.data.author}</P> : ""
+    }  
 
     </Gx>
     <Gx col={9}>
+  
     <ProfileButton primary small>View Profile</ProfileButton>
 
     </Gx>
      
-    <H6 small>Helsingin Sanomat 12.3.2019</H6>
+    <H6 small>{ data ? data.data["og:site_name"]: ""} { data ? data.data["article:published_time"] : ""}</H6>
    {
-      data ? <H5>{data.data.title}</H5> : <H5>Loading</H5>
+      data ? <H5>{data.data["og:description"]}</H5> : ""
     }
-       {
-      data ? <P small>{data.data.description}</P> : <H5>Loading</H5>
+    {
+      data ? <P small>{data.data["og:description"]}</P> : ""
     }
 
     </Text>

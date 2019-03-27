@@ -25,7 +25,7 @@ const LinkContainer = styled(Gx)`
 
 const NavLink = styled(H6)`
 @media (max-width: ${props => props.theme.screenSize.tablet}) {
-  display: none
+  // display: none
 `
 const Logo = styled(H5)`
 
