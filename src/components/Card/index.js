@@ -26,11 +26,13 @@ const ProfileButton = styled(Button)`
   margin-bottom: auto;
 
 `;
-const Card = ({data, props}) =>
+const description = 'og:description'
+const Card = (data) =>
 <Container>
-<Gx col={3}>
+{  console.log('moi',data)
+}<Gx col={3}>
 <ImageContainer>
-  <Image src="https://hs.mediadelivery.fi/img/978/656bf56e935d4605927ea1e13f422681.jpg.webp" />
+  <Image src={data.data.image} />
   </ImageContainer>
   </Gx>
 
@@ -46,8 +48,12 @@ const Card = ({data, props}) =>
     </Gx>
      
     <H6 small>Helsingin Sanomat 12.3.2019</H6>
-    <H5>{data.description}</H5>
-    {/* <P small>Erikoissyyttäjä Robert Muellerin tutkinnan tuloksena syntynyt raportti ei osoita, että presidentti Donald Trumpin vuoden 2016 vaalikampanja olisi tehnyt yhteistyötä Venäjän hallinnon kanssa. Raportti ei ottanut kantaa siihen, onko presidentti estänyt oikeuden toteutumiseErikoissyyttäjä Robert Muellerin tutkinnan tuloksena syntynyt raportti ei osoita, että presidentti Donald Trumpin vuoden 2016 vaalikampanja olisi tehnyt yhteistyötä Venäjän hallinnon kanssa. Raportti ei ottanut kantaa siihen, onko presidentti estänyt oikeuden toteutumisenn.</P> */}
+   {
+      data ? <H5>{data.data.title}</H5> : <H5>Loading</H5>
+    }
+       {
+      data ? <P small>{data.data.description}</P> : <H5>Loading</H5>
+    }
 
     </Text>
   </Gx>
