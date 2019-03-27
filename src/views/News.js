@@ -37,7 +37,7 @@ class News extends Component {
     ])
     
     
-    const targetUrl = 'https://cors.io/?https://www.bloomberg.com/news/articles/2016-05-24/as-zenefits-stumbles-gusto-goes-head-on-by-selling-insurance'
+    const targetUrl = 'https://www.hs.fi/teknologia/art-2000006049981.html'
 
     ;(async () => {
       const { body: html, url } = await axios(targetUrl)
