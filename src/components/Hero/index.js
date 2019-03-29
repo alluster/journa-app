@@ -1,81 +1,59 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Gx from '@tgrx/gx';
-import { H5, H6 } from 'components/Typography';
-import Wrapper from 'components/Wrapper';
-import SignUpPage from '../Form';
-
-
+import Form from '../Form';
 
 const Container = styled.div`
+
+`;
+const Overlay = styled.div`
+	background-color: white;
+	opacity: 0.5;
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
 `;
 const ContentBlock = styled.div`
-width: 60%;
-margin: auto;
-top: 25%;
-transform: translate(-0%, 25%);
-@media (max-width: ${props => props.theme.screenSize.tablet}) {
-  width: 100%;
-  margin: auto;
-  top: 0%;
-  transform: translate(-0%, 0%);
-  }
-
+	padding: 20px;
+	max-width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative
+	margin-top: 10%;
+	text-align: center;
+	z-index: 2;
+	@media (max-width: ${props => props.theme.screenSize.tablet}) {
+		margin: auto;
+		top: 0%;
+		transform: translate(-0%, 0%);
+	}
 `;
-const ImageContainer = styled.div`
-width: 100%;
-
-@media (max-width: ${props => props.theme.screenSize.tablet}) {
-display: none
-}`;
 
 const Image = styled.img`
-  width: 100%;
-  object-fit: cover;
-  max-height: calc(100vh - 108px);
-margin: 0px;
-padding: 0px;
-  
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	object-fit: cover;
+	margin: 0px;
+	padding: 0px;
+	z-index: -1;
+	box-sizing: border-box;
 `;
-const Register = styled.div`
-position: relative;
-top: 50%;
-transform: translate(-0%, -50%);
-@media (max-width: ${props => props.theme.screenSize.tablet}) {
-  position: relative;
-  margin-top: 120px;
-  transform: translate(-0%, -0%);
-
-
-`;
-
 
 class Hero extends Component {
   render() {
-    return (
-      <Container>
-        <Gx col={6}>
-          <ImageContainer >
-            <Image src="https://images.unsplash.com/photo-1552845312-844abcba21d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" />
-          </ImageContainer>
-        </Gx>
-       
-        <Gx col={6}>
-          <ContentBlock col={6}>
-            <SignUpPage />
-      
-          </ContentBlock>
-        </Gx>  
-      </Container>
-  
-    )
-    
- 
+	return (
+		<Container>
+			<Image src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" />
+			<ContentBlock >
+				<Form />
+			</ContentBlock>
+			<Overlay />
+		</Container>
+	)
   }
-}
-
-
-
-
+};
 
 export default Hero;

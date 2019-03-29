@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-    max-width: 100%;
     margin: 0;
     padding-left: 20px;
     padding-right: 20px;
@@ -12,7 +11,6 @@ const Container = styled.div`
 
 const Content = styled.div`
 
-    max-width: 100%;
     padding: 0px;
     padding-bottom: 0px;
     @media (max-width: ${props => props.theme.screenSize.tablet}) {

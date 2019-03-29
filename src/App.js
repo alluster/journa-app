@@ -4,7 +4,10 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { ThemeProvider } from 'styled-components';
 import theme from './theme';
 
-import News from './views/News';
+import Ostotoimeksianto from './views/Ostotoimeksianto';
+import OmatToimeksiannot from './views/OmatToimeksiannot';
+import Haku from './views/Haku';
+
 import Home from './views/Home';
 
 import Nav from './components/Nav'
@@ -13,6 +16,12 @@ import withFirebaseAuth from 'react-with-firebase-auth'
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseConfig from './firebaseConfig';
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faBars, faTimes)
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const GlobalStyle = createGlobalStyle`
@@ -20,13 +29,14 @@ const GlobalStyle = createGlobalStyle`
         margin: 0px;
         padding: 0px;
         max-width: 100%;
-        height: 100%;
         // border: red solid 1px;
-        overflow-x: hidden;
+        // overflow-x: hidden;
+        
     }
     h1 {
         margin: 0
     }
+
     img {
         max-width: 100%;
     }
@@ -34,6 +44,7 @@ const GlobalStyle = createGlobalStyle`
     a {
         all: unset;
     }
+    * { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
     a:link {
         all: unset;
     }
@@ -52,6 +63,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 class App extends Component {
+    
   render() {
     const {
         user,
@@ -61,21 +73,12 @@ class App extends Component {
     return (
         <ThemeProvider theme={theme}>
             <Router>
-                <Nav/>  
-                {
-        user 
-          ? <p>Hello, {user.displayName}</p>
-          : <p>Please sign in.</p>
-      }
-      {
-        user
-          ? <button onClick={signOut}>Sign out</button>
-          : <button onClick={signInWithGoogle}>Sign in with Google</button>
-      }
-                <div>
+                
                     <Route path="/" exact component={Home} user/>
-                    <Route path="/news/" component={News} />
-                </div>
+                    <Route path="/ostotoimeksianto/" component={Ostotoimeksianto} />
+                    <Route path="/omat-toimeksiannot/" component={OmatToimeksiannot} />
+                    <Route path="/haku/" component={Haku} />
+
                 <GlobalStyle />
             </Router>
         </ThemeProvider>

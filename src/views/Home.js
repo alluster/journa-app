@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
-import Wrapper from 'components/Wrapper';
+import React from 'react';
 import Hero from 'components/Hero';
+import Nav from 'components/Nav';
 
-class Home extends Component {
-  render() {
-    return (
-      <div>
-        <Hero />
-      {/* <Wrapper>
-        <h1>Content</h1>
-      </Wrapper> */}
-      </div>
+const Home = () => {
 
-    );
-  }
+  return (
+    <div>
+
+    <Nav transparent />  
+    <Hero />
+    </div>
+
+  
+  );
+  
 }
+
+  
+
 
 export default Home;
