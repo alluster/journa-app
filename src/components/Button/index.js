@@ -108,6 +108,7 @@ export const Button = styled.button`
             color: ${props => props.theme.colors.primary};
             border: 4px solid ${props => props.theme.colors.primary};
         `;
+        
         if (props.outline && props.secondary) return css`
             color: ${props => props.theme.colors.darkPrimary};
             border: 4px solid ${props => props.theme.colors.darkPrimary};
