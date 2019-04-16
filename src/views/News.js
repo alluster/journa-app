@@ -17,7 +17,6 @@ margin-top: 100px;
 class News extends Component {
   constructor(props) {
     super(props);
-    // Don't do this!
     this.state = { 
       color: props.color,
       data: {},
@@ -32,7 +31,6 @@ class News extends Component {
   }
 
   handleSubmit(event) {
-    alert('A url was submitted: ' + this.state.value);
     event.preventDefault();
     const urlMetadata = require('url-metadata')
 ;(async () => {
