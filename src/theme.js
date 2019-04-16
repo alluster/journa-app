@@ -2,8 +2,8 @@ export default {
     colors: {
         black: '#212121',
         white: '#fff',
-        blue: '#009CD5',
-        darkBlue: '#005472',
+        primary: '#FF7070',
+        darkPrimary: '#BC4141',
         gray: '#F9F9F9',
         darkGray: "#9E9E9E"
     },
@@ -40,9 +40,27 @@ export default {
         mobileS: '320px',
         mobileM: '375px',
         mobileL: '425px',
-        tablet: '512px',
+        tablet: '900px',
         laptop: '1024px',
         laptopL: '1440px',
         desktop: '2560px'
     },
+    flexboxgrid: {
+        // Defaults
+        gridSize: 12, // columns
+        gutterWidth: 1, // rem
+        outerMargin: 2, // rem
+        mediaQuery: 'only screen',
+        container: {
+          sm: 46, // rem
+          md: '900px', // rem
+          lg: 76  // rem
+        },
+        breakpoints: {
+          xs: 0,  // em
+          sm: 48, // em
+          md: 64, // em
+          lg: 75  // em
+        }
+      },
 }

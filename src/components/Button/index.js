@@ -7,6 +7,10 @@ export const Button = styled.button`
             min-width: 150px;
             font-size 12px;
             padding: 0 18px;
+            border-radius: 15px;
+            line-height: 30px;
+
+
         `;
 
         if (props.large) return css`
@@ -14,12 +18,20 @@ export const Button = styled.button`
             min-width: 250px;
             font-size: 20px;
             padding: 0 30px;
+            border-radius:30px;
+            line-height: 60px;
+
+
         `;
 
         return css`
             min-height: 50px;
             min-width: 250px;
             font-size: 16px;
+            line-height: 50px;
+            border-radius: 25px;
+            
+
         `;
     }}
 
@@ -30,12 +42,25 @@ export const Button = styled.button`
         `;
 
         if (props.primary) return css`
-            background-color: ${props => props.theme.colors.blue};
+            background-color: ${props => props.theme.colors.primary};
             color: ${props => props.theme.colors.white};
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+           -moz-transition: all 0.5s;
+            :hover {
+                background:rgba(188,65,65, 0.9);               
+            }
+            @media (max-width: ${props => props.theme.screenSize.tablet}) {
+                :hover {
+                    background: ${props => props.theme.colors.primary};               
+
+                }
+            }
+              
         `;
 
         if (props.secondary) return css`
-            background-color: ${props => props.theme.colors.darkBlue};
+            background-color: ${props => props.theme.colors.darkPrimary};
             color: ${props => props.theme.colors.white};
         `;
 
@@ -80,13 +105,13 @@ export const Button = styled.button`
 
     ${props => {
         if (props.outline && props.primary) return css`
-            color: ${props => props.theme.colors.blue};
-            border: 4px solid ${props => props.theme.colors.blue};
+            color: ${props => props.theme.colors.primary};
+            border: 4px solid ${props => props.theme.colors.primary};
         `;
-
+    
         if (props.outline && props.secondary) return css`
-            color: ${props => props.theme.colors.darkBlue};
-            border: 4px solid ${props => props.theme.colors.darkBlue};
+            color: ${props => props.theme.colors.darkPrimary};
+            border: 4px solid ${props => props.theme.colors.darkPrimary};
         `;
 
         if (props.outline && props.dark) return css`
@@ -108,9 +133,8 @@ export const Button = styled.button`
     line-height: 1.3;
     font-weight: 700;
     text-align: center;
-    border-radius: 5px;
     border: none;
-    font-family: 'Rubik', sans-serif;
-    text-transform: uppercase;
+    font-family: 'Nunito', sans-serif;
+    text-transform: none;
     :hover{cursor:pointer};
 `;
