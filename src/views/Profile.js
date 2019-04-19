@@ -47,7 +47,7 @@ class News extends Component {
         this.setState({value: event.target.value});
         const urlMetadata = require('url-metadata');
         (async () => {
-            const metadata = await urlMetadata(this.state.cors + this.state.value)
+            const metadata = await urlMetadata(this.state.value)
             this.setState({data: metadata})
             // putDataToDB({metadata})
             
