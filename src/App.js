@@ -4,25 +4,21 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { ThemeProvider } from 'styled-components';
 import theme from './theme';
 
-import Ostotoimeksianto from './views/Ostotoimeksianto';
-import OmatToimeksiannot from './views/OmatToimeksiannot';
-import Haku from './views/Haku';
+import News from './views/News';
 
 import Home from './views/Home';
+import Profile from './views/Profile';
 
 import Nav from './components/Nav'
 
-import withFirebaseAuth from 'react-with-firebase-auth'
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
-import firebaseConfig from './firebaseConfig';
+
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 
+
 library.add(faBars, faTimes)
-const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const GlobalStyle = createGlobalStyle`
     body, html {
@@ -65,19 +61,15 @@ const GlobalStyle = createGlobalStyle`
 class App extends Component {
     
   render() {
-    const {
-        user,
-        signOut,
-        signInWithGoogle,
-      } = this.props;
+
     return (
         <ThemeProvider theme={theme}>
             <Router>
-                
+            <Nav transparent/>
+
                     <Route path="/" exact component={Home} user/>
-                    <Route path="/ostotoimeksianto/" component={Ostotoimeksianto} />
-                    <Route path="/omat-toimeksiannot/" component={OmatToimeksiannot} />
-                    <Route path="/haku/" component={Haku} />
+                    <Route path="/profile/" component={Profile} />
+                    <Route path="/news/" component={News} />
 
                 <GlobalStyle />
             </Router>
@@ -86,12 +78,6 @@ class App extends Component {
     );
   }
 }
-const firebaseAppAuth = firebaseApp.auth();
 
-const providers = {
-  googleProvider: new firebase.auth.GoogleAuthProvider(),
-};
-export default withFirebaseAuth({
-    providers,
-    firebaseAppAuth,
-  })(App);
+
+export default App

@@ -3,11 +3,11 @@ import styled, { css } from 'styled-components';
 export const Button = styled.button`
     ${props => {
         if (props.small) return css`
-            min-height: 30px;
+            height: 40px;
             min-width: 150px;
             font-size 12px;
             padding: 0 18px;
-            border-radius: 15px;
+            border-radius: 20px;
             line-height: 30px;
 
 

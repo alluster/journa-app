@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { Row, Col } from 'react-styled-flexboxgrid';
-import { H5, H6 } from 'components/Typography';
+import { Row, Col } from 'react-flexbox-grid';
+import { H5, H3 } from 'components/Typography';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Link } from "react-router-dom";
+import Link  from "components/LinkHOC";
 
+const StyledRow = styled(Row)`
+	margin: 0px 0px 0px 0px !important; 
+	transform: translate(-0%, 50%);
+
+`;
+const StyledCol = styled(Col)`
+	padding: 0px 0px 0px 0px !important; 
+	margin-top: 20px;
+`;
 const MobileNav = styled.div `
+	margin-top: auto;
 	background-color: white;
 	z-index: 100000;
 	height: 100%;
-	width: 100%;
+	width: 100vw;
 	position: absolute;
 	top: 0;
+	padding: 0px;
+	margin:0px;
 	text-align: center;
-	@media (min-width: ${props => props.theme.screenSize.laptop}) {
+	@media (min-width: ${props => props.theme.screenSize.tablet}) {
 		display: none
 	};
+
 	${props => {
 		if (props.open) return css`
 			background-color: white;
@@ -27,6 +40,11 @@ const MobileNav = styled.div `
 	`;
 
 const Navigation = styled.div`
+${props => {
+	if (props.absolute) return css`
+		position: absolute !important;
+	`;
+}};
 	${props => {
 		if (props.transparent) return css`
 			background-color: transparent;
@@ -40,98 +58,121 @@ const Navigation = styled.div`
 			display: none;
 		`;
 	}};
+	
 	top; 0;
-	padding: 20px;
+	padding: 40px;
 	margin-top: 0px !mportant;
 	height: 50px;
 	z-index: 1000;
+	@media (max-width: ${props => props.theme.screenSize.tablet}) {
+		height: 20px;
+	}
 `;
 
 const NavLinkContainer = styled(Col)`
-	@media (max-width: ${props => props.theme.screenSize.laptop}) {
+	@media (max-width: ${props => props.theme.screenSize.tablet}) {
 		display: none
+		padding: 0px;
 	  `;
 	  
 const NavLink = styled(H5)`
-	line-height:20px;
-	font-size: 16px;
-	@media (max-width: ${props => props.theme.screenSize.laptop}) {
+	font-size: 20px;
+	text-align: right;
+	@media (max-width: ${props => props.theme.screenSize.tablet}) {
 		display: none
 	`;
 
-const NavLinkMobile = styled(H6)`
-	line-height:20px;
-	font-size: 20px;
+const NavLinkMobile = styled(H5)`
+	line-height:90px;
+	padding: 0px;
+	:hover {
+		cursor: pointer
+	}
 	`;
 
-const IconContainer = styled(FontAwesomeIcon)`
-	display: none
-	padding: 18px 0px 20px 0px;
-	font-size: 30px !important;
-	margin-left: 80%;
-	margin-right: auto;
-	
-	@media (max-width: ${props => props.theme.screenSize.laptop}) {
-		display: block
+const IconContainer = styled(H5)`
+	line-height: 20px;
+	font-size: 20px !important;
+	display: none;
+	text-align: right;
+	:hover {
+		cursor: pointer
+	}
+	@media (max-width: ${props => props.theme.screenSize.tablet}) {
+		display: block;
+		margin-top: 5px;
+
 	};
 	`;
 
+const Logo = styled.img`
+	width: 150px;
+	height: auto;
+	margin-top: 20px;
+	
+	@media (max-width: ${props => props.theme.screenSize.tablet}) {
+		margin-top: 5px;
+	}
+
+`;
 const Hamburger = styled(Col)`
 	`;
 
-const Logo = styled(H5)`
-	line-height:20px;
 
-	`;
-
-const Nav = ({ transparent }) => {
+const Nav = ({ transparent, className }) => {
 	const [toggle, setToggle]  = useState(false)
-  	return (
-		<div>
+
+	
+
+	return (
+		<div className={className} >
 			<MobileNav open={toggle}>
-				<Row>
-					<Col xs={12} open={toggle}>
-						<IconContainer icon="times" onClick={ () => setToggle(!toggle)}/>
-					</Col>
-					<Col onClick={ () => setToggle(!toggle)} xs={12}>
-						<Link to="ostotoimeksianto">
-							<NavLinkMobile>Ostotoimeksianto </NavLinkMobile>
+				<StyledRow>
+					<StyledCol onClick={ () => setToggle(!toggle)} xs={12}>
+						<Link to="news">
+							<NavLinkMobile>Newslisting</NavLinkMobile>
 						</Link>
-					</Col>
-					<Col onClick={ () => setToggle(!toggle)} xs={12}>
-						<Link to="haku">
-							<NavLinkMobile>Haku</NavLinkMobile>
+					</StyledCol>
+					<StyledCol onClick={ () => setToggle(!toggle)} xs={12}>
+						<Link to="profile">
+							<NavLinkMobile>Profile</NavLinkMobile>
 						</Link>
-					</Col>
-					<Col onClick={ () => setToggle(!toggle)} xs={12}>
-						<Link to="omat-toimeksiannot">
-							<NavLinkMobile>Omat toimeksiannot</NavLinkMobile>
+					</StyledCol>
+					<StyledCol onClick={ () => setToggle(!toggle)} xs={12}>
+						<Link to="news">
+							<NavLinkMobile>Journalists</NavLinkMobile>
 						</Link>
-					</Col>
-				</Row>
+					</StyledCol>
+					
+					
+					<StyledCol onClick={ () => setToggle(!toggle)} xs={12}>
+						<NavLinkMobile bold>Close <FontAwesomeIcon icon="times"/></NavLinkMobile>
+					</StyledCol>
+				</StyledRow>
 			</MobileNav>
-			<Navigation transparent={transparent} open={toggle}>
+			<Navigation  transparent={transparent} open={toggle}>
 				<Row>
-					<Col xs={10} sm={10} md={6} >
+					<Col xs={7} sm={3} md={3} >
 						<Link to="/" >
-							<Logo bold>Hiljainenmyynti</Logo>
+							<H5>Journa</H5>
 						</Link>
 					</Col>
-					<NavLinkContainer  md={2}>
-						<Link to="ostotoimeksianto"><NavLink>Ostotoimeksianto </NavLink></Link>
-					</NavLinkContainer>
-					<NavLinkContainer  md={2}>
-						<Link to="haku"><NavLink>Haku</NavLink></Link>
-					</NavLinkContainer>
-					<NavLinkContainer  md={2}>
-						<Link to="omat-toimeksiannot"><NavLink>Omat toimeksiannot</NavLink></Link>
-					</NavLinkContainer>
-					<Row end="sm" end="xs" end="md">
-						<Hamburger xs={2} sm={2} md={9}  open={toggle}>
-							<IconContainer icon="bars" onClick={ () => setToggle(!toggle)}/>
-						</Hamburger>
-					</Row>
 			
+					<NavLinkContainer  md={3}>
+						<Link to="news"><NavLink>Newslisting</NavLink></Link>
+					</NavLinkContainer>
+					<NavLinkContainer  md={3}>
+						<Link to="profile"><NavLink>Profile</NavLink></Link>
+					</NavLinkContainer>
+					<NavLinkContainer  md={3}>
+						<Link to="news"><NavLink>Journalists</NavLink></Link>
+					</NavLinkContainer>
+					
+					<Hamburger xs={5} sm={9} md={9}  open={toggle}>
+						<IconContainer right>
+							<FontAwesomeIcon icon="bars" onClick={ () => setToggle(!toggle)}/>
+						</IconContainer>
+					</Hamburger>
 				</Row>
 			</Navigation>
 		</div>

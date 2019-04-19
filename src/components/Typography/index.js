@@ -21,7 +21,13 @@ hyphens: auto;
             font-weight: 400;
         `;
     }};
-
+    
+    ${props => {
+		if (props.lineHeight) return css`
+			line-height: ${props => props.lineHeight} !important;
+		`;
+    }};
+    
     ${props => props.underline
         ? css`
             text-decoration: ${props => props.theme.textDecoration.underline};

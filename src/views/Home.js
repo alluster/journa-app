@@ -7,7 +7,6 @@ const Home = () => {
   return (
     <div>
 
-    <Nav transparent />  
     <Hero />
     </div>
 

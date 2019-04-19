@@ -32,10 +32,10 @@ const InputHero = styled.input `
 const Form = () =>
 <div>
   <Container>
-    <H1>Löydä hiljaiset myyntikohteet</H1>
-    <InputHero  fieldName="Email address" placeholder="Anna sähköpostiosoitteesi" />
-    <Button primary>Rekisteröidy</Button>
-        <H6>Asunnonvälittäjän työkalu hiljaisten myyntikohteiden löytämiseen</H6>
+    <H1>Let's Bring Transparency Back To Journalism</H1>
+    <InputHero  fieldName="Email address" placeholder="Sign up with your email address" />
+    <Button primary>Register</Button>
+        <H6>How do you know if you are reading text by a real independent news reporter?</H6>
 
   </Container>
 

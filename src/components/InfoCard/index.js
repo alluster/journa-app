@@ -1,25 +1,70 @@
 import React, { Component } from 'react';
+import { P, H1, H2, H3, H4, H5, H6 } from 'components/Typography';
+import Gx from '@tgrx/gx';
+import {Button} from 'components/Button';
+import styled from 'styled-components';
+
+const Container = styled.div`
+    // border: 1px solid ${props => props.theme.colors.black};
+    border-radius: 5px;
+`;
+
+const Text = styled.div`
+    margin-left: 20px;
+`;
+const ImageContainer = styled.div`
+background-position: cover;  
+`;
+const Image = styled.img`
+background-position: cover;  
+`;
+
+const ProfileButton = styled(Button)`
+  margin-top: 15px;
+  margin-bottom: auto;
+`;
+const InfoCard = (data) =>{
+	  const item = data.data.metadata.metadata
+	return(
+			<Container>
+			<Gx col={3}>
+			<ImageContainer>
+			<Image src={item.image} />
+			</ImageContainer>
+			</Gx>
+
+			<Gx col={9}>
+			<Text >
+				<Gx col={3}>
+				{
+				item ? <P small>{item.author}</P> : ""
+				}  
+
+				</Gx>
+				<Gx col={9}>
+			
+				{/* <ProfileButton primary small>View Profile</ProfileButton> */}
+
+				</Gx>
+				
+				<H6 small>{ item ? item["og:site_name"]: ""} { item ? item["article:published_time"] : ""}</H6>
+			{
+				item ? <H5>{item["og:description"]}</H5> : ""
+				}
+				{
+				item ? <P small>{item["og:description"]}</P> : ""
+				}
+
+				</Text>
+			</Gx>
 
 
-class InfoCard extends Component {
-  render() {
-    return (
-<div class="jumbotron">
-  <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4"/>
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-</div>
-    
-    )
-    
- 
-  }
+			</Container>
+
+	)
 }
 
 
-
-
+  
 
 export default InfoCard;
