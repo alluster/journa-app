@@ -5,6 +5,9 @@ import Wrapper from 'components/Wrapper';
 import Card from 'components/InfoCard';
 import { Row, Col } from 'react-flexbox-grid';
 import { Button } from 'components/Button';
+import { putDataToDB, getDataFromDb, deleteFromDB } from '../requests';
+import InfoCard from 'components/InfoCard';
+
 const Container = styled(Wrapper)`
 `;
 
@@ -32,31 +35,19 @@ class News extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      color: props.color,
-      data: {},
-      value:'', 
-      cors: 'https://cors.io/?'
+			news: []
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
    }
-   handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const urlMetadata = require('url-metadata')
-;(async () => {
-  const metadata = await urlMetadata(this.state.cors + this.state.value)
-  console.log(metadata)
-  this.setState({data: metadata})
-})()
-  }
-
+   
    
 
-
+	componentDidMount() {
+		getDataFromDb(data => {
+			this.setState({ news: data.data })
+			console.log(data)
+		})
+	}
 
 
   render() {
@@ -65,28 +56,17 @@ class News extends Component {
     return (
       <Container>
         <Content>
-		<form onSubmit={this.handleSubmit}>
+			{
+				this.state.news.map((item, i) => {
+					return ( 
+						<div key={i}>
+							<InfoCard  data={item}/>
+						</div>
+					)
+				}
 
-		<Row>
-
-			<Col xs={12} sm={12} md={4} lg={4}>
-				<H4 lineHeight="0px">Add Newslisting</H4>
-			</Col>
-			<Col xs={6} sm={6} md={4} lg={4}>
-				<Input type="text" value={this.state.value} onChange={this.handleChange} />
-			</Col>
-			<Col xs={6} sm={6} md={4} lg={4}>
-				<Button primary small type="submit" >Add</Button>
-
-			</Col>
-
-
-		</Row>	
-		</form>           
-
-		<Card data={this.state.data} />
-
-
+				).reverse()                
+			}
         </Content>
       
       </Container>

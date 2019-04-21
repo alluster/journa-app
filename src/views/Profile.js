@@ -6,7 +6,8 @@ import InfoCard from 'components/InfoCard';
 import AddNewsCard from 'components/AddNewsCard';
 import { Row, Col } from 'react-flexbox-grid';
 import { Button } from 'components/Button';
-import {putDataToDB, getDataFromDb} from '../requests';
+import { putDataToDB, getDataFromDb, deleteFromDB } from '../requests';
+import { ClipLoader } from 'react-spinners';
 
 const Container = styled(Wrapper)`
 `;
@@ -31,45 +32,77 @@ const Input = styled.input`
 
 
 
-class News extends Component {
+class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = { 
         value:'', 
         data: {},
+        refreshCard: '',
+        dataRetrieved: false,
+        loading: false,
         news: [],
         cors: 'https://cors.io/?'
         }
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDeleteItem = this.handleDeleteItem.bind(this);
+
     }
     handleChange(event) {
-        this.setState({value: event.target.value});
+        let currentComponent = this;
         const urlMetadata = require('url-metadata');
         (async () => {
-            const metadata = await urlMetadata(this.state.value)
-            this.setState({data: metadata})
-            // putDataToDB({metadata})
+        this.setState({loading: true})
+        await this.setState({value: event.target.value});
+        await urlMetadata(this.state.cors + this.state.value).then(
+            function (metadata) { 
+                currentComponent.setState({data: metadata})
+                currentComponent.setState({loading: false})
+                currentComponent.setState({dataRetrieved: true})
+            },
+            function (error) {
+                console.log(error)
+            })
             
+
         })()
+
     }
-    handleSubmit(event) {
-        
-        event.preventDefault();
-        const urlMetadata = require('url-metadata');
-        (async () => {
-            const metadata = await urlMetadata(this.state.cors + this.state.value)
-            this.setState({data: metadata})
-            putDataToDB({metadata})
-            
-        })()
+    handleDeleteItem(id){
+        this.setState({loading: true})
+        deleteFromDB(id)
+        this.setState({loading: false})
+        this.setState({dataRetrieved: true, loading: false})
+        this.refreshCard()
+        getDataFromDb(data => {
+            this.setState({ news: data.data })
+            console.log(data)
+        })
+    }
+    
+    handleSubmit() {
+        this.setState({loading: true})
+        putDataToDB(this.state.data)
+        this.setState({loading: false})
+        this.setState({dataRetrieved: true, loading: false})
+        getDataFromDb(data => {
+            this.setState({ news: data.data })
+            console.log(data)
+        })
     }
     componentDidMount() {
         getDataFromDb(data => {
-            
             this.setState({ news: data.data })
+            console.log(data)
         })
     }
+
+    refreshCard = () => 
+        this.setState({refreshCard: !this.state.refreshCard})
+
+    
 
     render() {        
          return (
@@ -82,7 +115,11 @@ class News extends Component {
                                 <Input type="text" value={this.state.value} onChange={this.handleChange} />
                             </Col>
                             <Col xs={6} sm={6} md={4} lg={4}>
-                                <Button primary small type="submit" >Seek</Button>
+                            {
+                                this.state.dataRetrieved ?
+                                    <Button primary small type="submit" >Add to my news articles</Button>
+                                : null
+                            }
                             </Col>
                         </Row>	
                     </form>           
@@ -91,10 +128,34 @@ class News extends Component {
                             <H4 lineHeight="0px">My News</H4>
                         </Col>
                     </Row>	
-                    <AddNewsCard data={this.state.data} />
+              
+                        <ClipLoader
+                        // css={override}
+                        sizeUnit={"px"}
+                        size={25}
+                        color={'#123abc'}
+                        loading={this.state.loading}
+                      />
+                        {
+                            this.state.dataRetrieved ? 
+                            <AddNewsCard 
+                            data={this.state.data} 
+                            refresh={this.refreshCard}
+                            /> : null
+                        }
+
+
+   
                     {
-                        this.state.news.map((item, i) => 
-                           <InfoCard key={i} data={item}/>
+                        this.state.news.map((item, i) => {
+                            return ( 
+                                <div key={i}>
+                                    <InfoCard  data={item} refresh={this.refreshCard}/>
+                                    <Button primary onClick={() => {this.handleDeleteItem(item._id)}} >Delete from articles</Button>
+                                </div>
+                            )
+                        }
+
                         ).reverse()                
                     }
                    
@@ -109,4 +170,4 @@ class News extends Component {
 
 
 
-export default News;
+export default Profile;

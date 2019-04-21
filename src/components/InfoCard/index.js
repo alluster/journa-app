@@ -3,6 +3,7 @@ import { P, H1, H2, H3, H4, H5, H6 } from 'components/Typography';
 import Gx from '@tgrx/gx';
 import {Button} from 'components/Button';
 import styled from 'styled-components';
+import { deleteFromDB } from '../../requests';
 
 const Container = styled.div`
     // border: 1px solid ${props => props.theme.colors.black};
@@ -24,42 +25,33 @@ const ProfileButton = styled(Button)`
   margin-bottom: auto;
 `;
 const InfoCard = (data) =>{
-	  const item = data.data.metadata.metadata
+	const item = data.data.metadata 
 	return(
-			<Container>
+		<Container>
 			<Gx col={3}>
-			<ImageContainer>
-			<Image src={item.image} />
-			</ImageContainer>
+				<ImageContainer>
+					{ item ? <Image src={item.image} /> : null }
+				</ImageContainer>
 			</Gx>
 
 			<Gx col={9}>
-			<Text >
-				<Gx col={3}>
-				{
-				item ? <P small>{item.author}</P> : ""
-				}  
+				<Text >
+					<Gx col={3}>
+						{
+						item ? <P small>{item.author}</P> : ''
+						}  
 
-				</Gx>
-				<Gx col={9}>
+					</Gx>
+
 			
-				{/* <ProfileButton primary small>View Profile</ProfileButton> */}
-
-				</Gx>
-				
-				<H6 small>{ item ? item["og:site_name"]: ""} { item ? item["article:published_time"] : ""}</H6>
-			{
-				item ? <H5>{item["og:description"]}</H5> : ""
-				}
-				{
-				item ? <P small>{item["og:description"]}</P> : ""
-				}
-
+					<H6 small>{ item ? item["og:site_name"]: '' } { item ? item["article:published_time"] : '' }</H6>
+					{ item ? <H5>{item["og:description"]}</H5> : '' }
+					{ item ? <P small>{item["og:description"]}</P> : '' }
 				</Text>
-			</Gx>
+		</Gx>
 
 
-			</Container>
+		</Container>
 
 	)
 }
