@@ -42,7 +42,7 @@ class Profile extends Component {
         dataRetrieved: false,
         loading: false,
         news: [],
-        cors: 'https://cors.io/?'
+        cors: 'http://cors.io/?'
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -116,7 +116,7 @@ class Profile extends Component {
                             </Col>
                             <Col xs={6} sm={6} md={4} lg={4}>
                             {
-                                this.state.dataRetrieved ?
+                                !this.state.dataRetrieved ?
                                     <Button primary small type="submit" >Add to my news articles</Button>
                                 : null
                             }
